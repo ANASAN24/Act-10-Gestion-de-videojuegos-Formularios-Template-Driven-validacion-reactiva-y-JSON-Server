@@ -39,6 +39,14 @@
       "price": 15,
       "stock": 4,
       "id": 5
+    },
+    {
+      "title": "Arena II",
+      "genre": "Platform",
+      "platform": "Switch",
+      "price": 40,
+      "stock": 12,
+      "id": 6
     }
   ]
 }

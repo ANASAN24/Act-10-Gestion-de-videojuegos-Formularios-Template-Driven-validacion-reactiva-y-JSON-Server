@@ -1,72 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { Game } from './models/game';
-import { GameService } from './services/game.service';
+import { Component } from '@angular/core';
+import { CrudComponent } from './crud/crud.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CrudComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-
-  private gameService = inject(GameService);
-
-  games: Game[] = [];
-
-  game: Game = {
-    title: '',
-    genre: '',
-    platform: '',
-    price: 0,
-    stock: 0
-  };
-
-  ngOnInit(): void {
-    this.loadGames();
-  }
-
-  loadGames(): void {
-    this.gameService.getGames().subscribe(data => {
-      this.games = data;
-    });
-  }
-
-  editGame(game: Game): void {
-    this.game = { ...game };
-  }
-
-  saveGame(form: NgForm): void {
-    if (form.invalid) return;
-
-    if (this.game.id) {
-      this.gameService.updateGame(this.game).subscribe(() => {
-        this.loadGames();
-        this.resetForm(form);
-      });
-    } else {
-      this.gameService.createGame(this.game).subscribe(() => {
-        this.loadGames();
-        this.resetForm(form);
-      });
-    }
-  }
-
-  cancelEdit(form: NgForm): void {
-    this.resetForm(form);
-  }
-
-  resetForm(form: NgForm): void {
-    this.game = {
-      title: '',
-      genre: '',
-      platform: '',
-      price: 0,
-      stock: 0
-    };
-
-    form.resetForm(this.game);
-  }
+export class App {
 }
